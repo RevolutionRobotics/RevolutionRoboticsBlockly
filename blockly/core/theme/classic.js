@@ -45,6 +45,12 @@ var defaultBlockStyles = {
     "colourSecondary":"#FFFFFF",
     "colourTertiary":"#868a8c"
   },
+  "light_blocks": {
+    "colourPrimary": "#e51777"
+  },
+  "sound_blocks": {
+    "colourPrimary" : "#5e2882"
+  },
   "list_blocks": {
     "colourPrimary": "260"
   },

@@ -53,13 +53,14 @@ function transformBlockContextTitle(title) {
 }
 
 function calculateMinMaxValueForSlider(sourceBlock) {
+  var driveBlockTypes = ["block_drive", "block_turn", "block_set_speed"];
   var parentInputList = sourceBlock.getParent().inputList;
+  var isDriveBlock = (driveBlockTypes.indexOf(sourceBlock.getParent().type) > -1);
   var lastField = parentInputList[parentInputList.length - 1].fieldRow[0];
   var fieldValue = lastField.getValue();
-
   return {
     min: 0,
-    max: fieldValue == 'Motor.UNIT_SPEED_RPM' ? 170 : 100
+    max: (fieldValue == 'Motor.UNIT_SPEED_RPM' || fieldValue == 'rpm' ) ? (isDriveBlock ? 120 : 150) : 100
   };
 }
 
@@ -118,7 +119,8 @@ Blockly.NativeBridge.input = function(sourceBlock, type, title, defaultInput, ca
       finalTitle = 'Change motor:'
       textInputObject['subtitle'] = 'Motor:';  
     }
-    if (sourceBlock.type === 'block_ultrasonic_sensor' || sourceBlock.type === 'block_bumper') {
+    if (sourceBlock.type === 'block_ultrasonic_sensor' || sourceBlock.type === 'block_bumper' || 
+        sourceBlock.type === 'block_is_object_near' || sourceBlock.type === 'block_wait_for_button_press') {
       finalTitle = 'Change sensor:'
       textInputObject['subtitle'] = 'Sensor:';  
     }        

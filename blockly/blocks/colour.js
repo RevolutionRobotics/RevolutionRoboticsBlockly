@@ -56,7 +56,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     ],
     "output": "Colour",
     "helpUrl": "%{BKY_COLOUR_PICKER_HELPURL}",
-    "style": "colour_blocks",
+    "style": "light_blocks",
     "tooltip": "%{BKY_COLOUR_PICKER_TOOLTIP}",
     "extensions": ["parent_tooltip_when_inline"]
   },
