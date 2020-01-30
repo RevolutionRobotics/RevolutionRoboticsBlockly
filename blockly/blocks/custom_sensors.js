@@ -18,7 +18,7 @@ Blockly.Blocks['block_wait_for_button_press'] = {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage(CUSTOM_IMAGES.BUMPER, 15, 15, '*'), 'BUMPER_IMAGE')
       .appendField('wait until')
-      .appendField(new Blockly.FieldTextInput('bumper'), 'NAME_INPUT')
+      .appendField(new Blockly.FieldTextInput('button'), 'NAME_INPUT')
       .appendField('is pressed');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -47,7 +47,7 @@ Blockly.Blocks['block_bumper'] = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage(CUSTOM_IMAGES.BUMPER, 15, 15, '*'), 'BUMPER_IMAGE')
-      .appendField(new Blockly.FieldTextInput('bumper'), 'NAME_INPUT')
+      .appendField(new Blockly.FieldTextInput('button'), 'NAME_INPUT')
       .appendField('pressed');
 
     this.setOutput(true, 'Boolean');

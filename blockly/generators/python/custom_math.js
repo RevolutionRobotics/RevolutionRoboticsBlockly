@@ -43,7 +43,7 @@ Blockly.Python['math_pi'] = function (block) {
 Blockly.Python['math_round2'] = function (block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('OPERATOR_SELECTOR');
-    var code;
+
     var arg;
     if (operator == 'NEG') {
         // Negation is a special case given its different operator precedence.
@@ -58,63 +58,37 @@ Blockly.Python['math_round2'] = function (block) {
     }
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
-    switch (operator) {
-        case 'ABS':
-            code = 'math.fabs(' + arg + ')';
-            break;
-        case 'ROOT':
-            code = 'math.sqrt(' + arg + ')';
-            break;
-        case 'LN':
-            code = 'math.log(' + arg + ')';
-            break;
-        case 'LOG10':
-            code = 'math.log10(' + arg + ')';
-            break;
-        case 'EXP':
-            code = 'math.exp(' + arg + ')';
-            break;
-        case 'POW10':
-            code = 'math.pow(10,' + arg + ')';
-            break;
-        case 'ROUND':
-            code = 'round(' + arg + ')';
-            break;
-        case 'ROUNDUP':
-            code = 'math.ceil(' + arg + ')';
-            break;
-        case 'ROUNDDOWN':
-            code = 'math.floor(' + arg + ')';
-            break;
-        case 'SIN':
-            code = 'math.sin(' + arg + ' / 180.0 * math.pi)';
-            break;
-        case 'COS':
-            code = 'math.cos(' + arg + ' / 180.0 * math.pi)';
-            break;
-        case 'TAN':
-            code = 'math.tan(' + arg + ' / 180.0 * math.pi)';
-            break;
+    var OPERATORS = {
+        'ABS': ['math.fabs({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'ROOT': ['math.sqrt({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'LN': ['math.log({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'LOG10': ['math.log10({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'EXP': ['math.exp({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'POW10': ['math.pow(10, {})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'ROUND': ['round({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'ROUNDUP': ['math.ceil({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'ROUNDDOWN': ['math.floor({})', Blockly.Python.ORDER_FUNCTION_CALL],
+        'SIN': ['math.sin({} / 180.0 * math.pi)', Blockly.Python.ORDER_FUNCTION_CALL],
+        'COS': ['math.cos({} / 180.0 * math.pi)', Blockly.Python.ORDER_FUNCTION_CALL],
+        'TAN': ['math.tan({} / 180.0 * math.pi)', Blockly.Python.ORDER_FUNCTION_CALL],
+
+        'ASIN': ['math.asin({}) / math.pi * 180', Blockly.Python.ORDER_MULTIPLICATIVE],
+        'ACOS': ['math.acos({}) / math.pi * 180', Blockly.Python.ORDER_MULTIPLICATIVE],
+        'ATAN': ['math.atan({}) / math.pi * 180', Blockly.Python.ORDER_MULTIPLICATIVE]
     }
-    if (code) {
-        return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+
+    if (!(operator in OPERATORS))
+    {
+        throw Error('Unknown math operator: ' + operator);
     }
-    // Second, handle cases which generate values that may need parentheses
-    // wrapping the code.
-    switch (operator) {
-        case 'ASIN':
-            code = 'math.asin(' + arg + ') / math.pi * 180';
-            break;
-        case 'ACOS':
-            code = 'math.acos(' + arg + ') / math.pi * 180';
-            break;
-        case 'ATAN':
-            code = 'math.atan(' + arg + ') / math.pi * 180';
-            break;
-        default:
-            throw Error('Unknown math operator: ' + operator);
-    }
-    return [code, Blockly.Python.ORDER_MULTIPLICATIVE];
+
+    var tuple = OPERATORS[operator];
+    var pattern = tuple[0];
+    var order = tuple[1];
+
+    var code = pattern.replace('{}', arg);
+
+    return [code, order];
 };
 
 Blockly.Python['math_random_int2'] = function (block) {
@@ -122,6 +96,6 @@ Blockly.Python['math_random_int2'] = function (block) {
     Blockly.Python.definitions_['import_random'] = 'import random';
     var argument0 = Blockly.Python.valueToCode(block, 'FROM', Blockly.Python.ORDER_NONE) || '0';
     var argument1 = Blockly.Python.valueToCode(block, 'TO', Blockly.Python.ORDER_NONE) || '0';
-    var code = 'random.randint(' + argument0 + ', ' + argument1 + ')';
+    var code = `random.randint(${argument0}, ${argument1})`;
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };

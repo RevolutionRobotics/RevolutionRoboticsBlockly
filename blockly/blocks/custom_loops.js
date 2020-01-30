@@ -135,7 +135,7 @@ Blockly.Blocks['block_terminate_program'] = {
       .appendField(new Blockly.FieldImage(CUSTOM_IMAGES.STOP, 15, 15, '*'), 'STOP_IMAGE')
       .appendField('terminate program');
     this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setNextStatement(false, null);
     this.setStyle('loop_blocks');
     this.setTooltip('');
     this.setHelpUrl('');
@@ -148,7 +148,7 @@ Blockly.Blocks['block_terminate_all'] = {
       .appendField(new Blockly.FieldImage(CUSTOM_IMAGES.STOP_ALL, 15, 15, '*'), 'STOP_IMAGE')
       .appendField('terminate all');
     this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setNextStatement(false, null);
     this.setStyle('loop_blocks');
     this.setTooltip('');
     this.setHelpUrl('');

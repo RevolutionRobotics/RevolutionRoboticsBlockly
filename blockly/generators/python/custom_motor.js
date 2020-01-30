@@ -13,13 +13,13 @@ var speeds = {
     'SPEED_SLOW': 25,
     'SPEED_MEDIUM': 75,
     'SPEED_FAST': 120
-} 
+}
 
 var durations = {
     'DURATION_SHORT': 1,
     'DURATION_MEDIUM': 2,
     'DURATION_LONG': 5
-} 
+}
 
 Blockly.Python['block_drive_fwd_small'] = function (block) {
     return 'robot.drive(direction=Motor.DIRECTION_FWD, rotation=2, unit_rotation=Motor.UNIT_SEC, speed=50, unit_speed=Motor.UNIT_SPEED_RPM)\n';
@@ -60,21 +60,11 @@ Blockly.Python['block_drive_simplified'] = function (block) {
 
     var code =
         'robot.drive(' +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        duration +
-        ', ' +
-        'unit_rotation=' +
-        'Motor.UNIT_SEC' +
-        ', ' +
-        'speed=' +
-        number_speed +
-        ', ' +
-        'unit_speed=' +
-        'Motor.UNIT_SPEED_RPM' +
-        ')\n';
+        `direction=${dropdown_direction}, ` +
+        `rotation=${duration}, `+
+        'unit_rotation=Motor.UNIT_SEC, ' +
+        `speed=${number_speed}, ` +
+        'unit_speed=Motor.UNIT_SPEED_RPM)\n';
     return code;
 };
 
@@ -84,18 +74,10 @@ Blockly.Python['block_turn_simplified'] = function (block) {
 
     var code =
         'robot.turn(' +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        number_rotation +
-        ', ' +
-        'unit_rotation=' +
-        'Motor.UNIT_TURN_ANGLE' +
-        ', ' +
-        'speed=' +
-        '75' +
-        ', ' +
+        `direction=${dropdown_direction}, ` +
+        `rotation=${number_rotation}, ` +
+        'unit_rotation=Motor.UNIT_TURN_ANGLE, ' +
+        'speed=75, ' +
         'unit_speed=Motor.UNIT_SPEED_RPM)\n';
     return code;
 };
@@ -107,22 +89,11 @@ Blockly.Python['block_motor_simplified'] = function (block) {
 
     var code =
         `robot.motors["${text_name}"].move(` +
-        'direction=' +
-        direction +
-        ', ' +
-        'amount=' +
-        amount +
-        ', ' +
-        'unit_amount=' +
-        'Motor.UNIT_DEG' +
-        ', ' +
-        'limit=' +
-        '75' +
-        ', ' +
-        'unit_limit=' +
-        'Motor.UNIT_SPEED_RPM' +
-        ')\n';
-
+        `direction=${direction}, ` +
+        `amount=${amount}, ` +
+        'unit_amount=Motor.UNIT_DEG, ' +
+        'limit=75, ' +
+        'unit_limit=Motor.UNIT_SPEED_RPM)\n';
     return code;
 };
 
@@ -133,16 +104,9 @@ Blockly.Python['block_spin_motor_simplified'] = function (block) {
 
     var code =
         `robot.motors["${text_name}"].spin(` +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        number_speed +
-        ', ' +
-        'unit_rotation=' +
-        'Motor.UNIT_SPEED_RPM' +
-        ')\n';
-
+        `direction=${dropdown_direction}, ` +
+        `rotation=${number_speed}, ` +
+        'unit_rotation=Motor.UNIT_SPEED_RPM)\n';
     return code;
 };
 
@@ -155,21 +119,11 @@ Blockly.Python['block_drive'] = function (block) {
 
     var code =
         'robot.drive(' +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        number_rotation +
-        ', ' +
-        'unit_rotation=' +
-        unit_rotation +
-        ', ' +
-        'speed=' +
-        number_speed +
-        ', ' +
-        'unit_speed=' +
-        unit_speed +
-        ')\n';
+        `direction=${dropdown_direction}, ` +
+        `rotation=${number_rotation}, ` +
+        `unit_rotation=${unit_rotation}, ` +
+        `speed=${number_speed}, ` +
+        `unit_speed=${unit_speed})\n`;
     return code;
 };
 
@@ -179,16 +133,10 @@ Blockly.Python['block_set_speed'] = function (block) {
     var unit_speed = block.getFieldValue('UNIT_SPEED_SELECTOR');
 
     var code =
-        'robot.drivetrain.set_speeds(' +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'speed=' +
-        number_speed +
-        ', ' +
-        'unit_speed=' +
-        unit_speed +
-        ')\n';
+        'robot.drivetrain.set_speed(' +
+        `direction=${dropdown_direction}, ` +
+        `speed=${number_speed}, ` +
+        `unit_speed=${unit_speed})\n`;
     return code;
 };
 
@@ -201,18 +149,10 @@ Blockly.Python['block_turn'] = function (block) {
 
     var code =
         'robot.turn(' +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        number_rotation +
-        ', ' +
-        'unit_rotation=' +
-        unit_rotation +
-        ', ' +
-        'speed=' +
-        number_speed +
-        ', ' +
+        `direction=${dropdown_direction}, ` +
+        `rotation=${number_rotation}, ` +
+        `unit_rotation=${unit_rotation}, ` +
+        `speed=${number_speed}, ` +
         'unit_speed=Motor.UNIT_SPEED_RPM)\n';
     return code;
 };
@@ -227,22 +167,11 @@ Blockly.Python['block_motor'] = function (block) {
 
     var code =
         `robot.motors["${text_name}"].move(` +
-        'direction=' +
-        direction +
-        ', ' +
-        'amount=' +
-        amount +
-        ', ' +
-        'unit_amount=' +
-        unit_amount +
-        ', ' +
-        'limit=' +
-        limit +
-        ', ' +
-        'unit_limit=' +
-        unit_limit +
-        ')\n';
-
+        `direction=${direction}, ` +
+        `amount=${amount}, ` +
+        `unit_amount=${unit_amount}, ` +
+        `limit=${limit}, ` +
+        `unit_limit=${unit_limit})\n`;
     return code;
 };
 
@@ -258,41 +187,36 @@ Blockly.Python['spin_motor'] = function (block) {
 
     var code =
         `robot.motors["${text_name}"].spin(` +
-        'direction=' +
-        dropdown_direction +
-        ', ' +
-        'rotation=' +
-        number_rotation +
-        ', ' +
-        'unit_rotation=' +
-        dropdown_unit +
-        ')\n';
-
+        `direction=${dropdown_direction}, ` +
+        `rotation=${number_rotation}, ` +
+        `unit_rotation=${dropdown_unit})\n`;
     return code;
 };
 
 Blockly.Python['block_stop_motor_simplified'] = function (block) {
     var text_name = block.getFieldValue('NAME_INPUT');
-    var code = `robot.motors["${text_name}"].stop(` + 'action=Motor.ACTION_STOP_AND_HOLD)\n';
-    return code;
+
+    return `robot.motors["${text_name}"].stop(action=Motor.ACTION_STOP_AND_HOLD)\n`;
 };
 
 Blockly.Python['block_stop_all_motors_simplified'] = function (block) {
-    return 'for __motor in robot.motors:\n' +
-            Blockly.Python.INDENT + '__motor.stop(action=Motor.ACTION_STOP_AND_HOLD)\n';
+    var loop_var = Blockly.Python.variableDB_.getDistinctName('motor', Blockly.Variables.NAME_TYPE);
+
+    return `for ${loop_var} in robot.motors:\n` +
+            Blockly.Python.INDENT + `${loop_var}.stop(action=Motor.ACTION_STOP_AND_HOLD)\n`;
 };
 
 Blockly.Python['block_stop_motor'] = function (block) {
     var text_name = block.getFieldValue('NAME_INPUT');
     var dropdown_action = block.getFieldValue('STOP_ACTION_SELECTOR');
 
-    var code = `robot.motors["${text_name}"].stop(` + 'action=' + dropdown_action + ')\n';
-    return code;
+    return `robot.motors["${text_name}"].stop(action=${dropdown_action})\n`;
 };
 
 Blockly.Python['block_stop_all_motors'] = function (block) {
     var dropdown_action = block.getFieldValue('STOP_ALL_ACTION_SELECTOR');
-    var code = 'for __motor in robot.motors:\n' +
-                Blockly.Python.INDENT + `__motor.stop(action='${dropdown_action})\n`;
-    return code;
+    var loop_var = Blockly.Python.variableDB_.getDistinctName('motor', Blockly.Variables.NAME_TYPE);
+
+    return `for ${loop_var} in robot.motors:\n` +
+            Blockly.Python.INDENT + `${loop_var}.stop(action='${dropdown_action})\n`;
 };
