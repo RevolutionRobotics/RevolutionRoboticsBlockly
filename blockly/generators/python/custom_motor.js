@@ -218,5 +218,5 @@ Blockly.Python['block_stop_all_motors'] = function (block) {
     var loop_var = Blockly.Python.variableDB_.getDistinctName('motor', Blockly.Variables.NAME_TYPE);
 
     return `for ${loop_var} in robot.motors:\n` +
-            Blockly.Python.INDENT + `${loop_var}.stop(action='${dropdown_action})\n`;
+            Blockly.Python.INDENT + `${loop_var}.stop(action=${dropdown_action})\n`;
 };
