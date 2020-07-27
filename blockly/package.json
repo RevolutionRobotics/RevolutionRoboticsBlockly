@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "jsdom": "^13.2.0",
-    "scratch-vm": "^0.2.0-prerelease.20190424211319"
+    "scratch-vm": "^0.2.0-prerelease.20200714185213"
   }
 }
